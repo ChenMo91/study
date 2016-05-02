@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>数组去重</title>
+	<script type="text/javascript">
+	Array.prototype.unique1 = function(){
+		var hash = {},
+			result=[];
+		for(var i  = 0,len = this.length ; i < len ; i++){
+			if(!hash[this[i]]){
+				hash[this[i]] = true;
+				result.push(this[i]);
+			}
+		}
+		return result;
+	}
+	var arr1 = [11,2,3,4,6,5,4,2];
+	var arr2 = arr1.unique1();
+	console.log(arr1);
+	console.log(arr2);
+
+	</script>
+</head>
+<body>
+
+</body>
+</html>

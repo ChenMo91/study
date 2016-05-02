@@ -1,0 +1,31 @@
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+	#ball{
+		width: 50px;
+		height: 50px;
+		background-color: red;
+		border-radius: 50%;
+		position: absolute;;
+	}
+	</style>
+	<script type="text/javascript">
+	window.onload = function(){
+		var ball = document.getElementById('ball');
+		var width = document.body.clientWidth;
+		var height = document.body.clientHeight;
+		
+		ball.onmouseover = function(){
+			var x = Math.floor(Math.random() * width ) + 1;
+			var y = Math.floor(Math.random() * height) + 1;
+			ball.style.left = x;
+			ball.style.top = y;
+		};
+	}
+	</script>
+</head>
+<body>
+	<div id='ball'></div>
+</body>
+</html>

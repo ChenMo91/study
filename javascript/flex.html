@@ -1,0 +1,36 @@
+<html>
+<head>
+	<title>flex布局</title>
+	<style type="text/css">
+	//float,clear and vertical-align 对flex元素没有效果。
+	.container{
+		border:1px solid red;
+		width: 150px;
+		height: 50px;
+		display: flex;
+		flex-direction:row;
+	}
+	.item{
+		border:1px solid green;
+		flex-grow:1;
+	}
+	.o1{
+		order:1;
+		flex-grow:2;
+	}
+	.o2{
+		order:2;
+	}
+	.o3{
+		order:99;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="item o1"></div>
+		<div class="item o2"></div>
+		<div class="item o3"></div>
+	</div>
+</body>
+</html>

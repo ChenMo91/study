@@ -1,0 +1,44 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>原型</title>
+	<script type="text/javascript">
+		function Foo(y) {
+			this.y = y;
+		}
+		Foo.x = 10;
+		Foo.prototype.cal = function (z) {
+			return  this.x + this.y + z; 
+		};
+		var b = new Foo(20);
+		b.cal(30);
+		console.log(Foo.prototype);
+		console.log(Foo.prototype.__proto__);
+		console.log(Foo.__proto__);
+
+		//静态作用域
+		var a = 3;
+		function foo() {
+			console.log(a);
+			console.log(this);
+		}
+		function bar() {
+			var a = 2;
+			foo();
+		}
+		bar();
+		//this
+		function foo1() {
+			var c = 1;
+			bar1();
+		}
+		function bar1() {
+			console.log(this.c);
+		}
+		foo1();
+	</script>
+</head>
+<body>
+
+</body>
+</html>

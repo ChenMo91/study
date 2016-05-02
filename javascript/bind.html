@@ -1,0 +1,49 @@
+<html>
+<head>
+	<title>bind实现</title>
+</head>
+<body>
+	<button onclick="alert(this.tagName.toUpperCase());">Show This</button>
+	<button onclick="alert((function(){return this}()));">Show inner this</button>
+	<script type="text/javascript">
+		Function.prototype.bind = function(){
+			
+			//bind作为Function的prototype属性，每一个函数都具有bind方法，其中的this指向调用该方法的函数（也即一个函数对象实例）
+			var fn = this;
+			//将类数组转换成数组
+			var args = Array.prototype.slice.call(arguments);
+			//shift方法会移除数组的第一个元素，即需要绑定this的对象
+			var object = args.shift();
+
+			return function(){
+				console.log('args:'+arguments);
+				console.log(args.concat(Array.prototype.slice.call(arguments)));//[2,1]
+				return fn.apply(object,
+					//现在args是移除了最初参数中第一个参数后的数组，也就是新函数的预设的初始参数。
+					//array.concat(items...)方法产生一个新数组，它包含一份array的浅复制，并把一个或者多个参数item附加在其后。
+					//这一行代码产生了一个参数数组，这个数组由预设的初始参数（如果存在）和新传递的参数组成。
+					args.concat(Array.prototype.slice.call(arguments)));
+
+			}
+		}
+		var name = 'yuan'
+		var info = {
+		    name: "yuanzm",
+		    sayName: function(a) {
+		        console.log(this.name);//yuanzm
+		        console.log('a:'+a);//a:2
+		    }
+		}
+		var sayName = info.sayName.bind(info,2);
+		sayName(1); 
+		//////
+		function f(){
+			return this.a;
+		}
+		var g = f.bind({a:"cm"});
+		console.log(g());
+		var o={a:37,f:f,g:g};
+		console.log(o.f(),o.g());
+	</script>
+</body>
+</html>

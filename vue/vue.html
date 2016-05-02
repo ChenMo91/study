@@ -1,0 +1,116 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div class="app">
+		Hello {{* name }}!
+	</div>
+	<div id="example-2">
+		<!-- 一条指令 -->
+		<p v-if="greeting">Hello!</p>
+	</div>
+	<div id="computed">
+		a={{a}},b={{b}}
+	</div>
+
+	<!-- 绑定HTML Class -->
+	<div class="static" v-bind:class="{'class-a':isA,'class-b':isB}"></div>
+	<!-- 绑定内联样式 -->
+	<div id="static" v-bind:style="styleObject">111</div>
+
+	<!-- ifelse 条件语句	 -->
+	<div class="condition">
+		<div v-if="Math.random() > 0.5">
+		sorry
+		</div>
+		<div v-else>
+			Not sorry
+		</div>
+	</div>
+	<!-- 事件处理器 -->
+	<button v-on:click="say('hello!' , $event)">Submit</button>
+	<input type="checkbox" v-model="toggle" v-bind:true-value="a" v-bind:false-value="b">
+	<select v-model="selected">
+		<option v-bind:value="a">123</option>
+	</select>
+
+	<script type="text/javascript" src="./vue.js"></script>
+	<script type="text/javascript">
+		var vm3 = new Vue({
+			el:'select'
+		});
+		console.log( vm3.selected == vm3.a);
+		var exampleData = {
+			name:'chenmo'
+		}
+		//创建一个Vue实例或“ViewModel”,它连接view与model
+		new Vue({
+			el:'.app',
+			data:exampleData
+		})
+		var vm2 = new Vue({
+			el:'#example-2',
+			data:{
+				greeting:false
+			}
+		});
+		//计算属性
+		var vm = new Vue({
+			el:'#computed',
+			data:{
+				a:1
+			},
+			computed:{
+				//一个计算属性的getter
+				b:{
+					get:function(){
+					//this指向vm实例
+					return this.a + 1;
+					},
+					set:function(newValue){
+						var value = +newValue;
+						this.a = value - 1;
+						this.b = value;
+					}
+				}
+			}
+		})
+		//绑定HTML Class
+		new Vue({
+			el:'.static',
+			data:{
+				isA:true,
+				isB:false
+			}
+		})
+		new Vue({
+			el:'#static',
+			data:{
+				styleObject:{
+					color:'red',
+					fontSize:'13px'
+				}
+			}
+		})
+		//if else条件语句
+		new Vue({
+			el:'.condition'
+		})
+		//事件处理器
+		new Vue({
+			el:'button',
+			methods:{
+				say:function(msg,event){
+					event.preventDefault();
+				}
+			}
+		})
+		var vm1 = new Vue({
+			el:'input'
+		})
+		console.log(vm1.toggle === vm1.b);
+	</script>
+</body>
+</html>

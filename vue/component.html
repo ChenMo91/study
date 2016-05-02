@@ -1,0 +1,84 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>组件</title>
+</head>
+<body>
+	<div id="example">
+		<my-component></my-component>
+	</div>
+	<div class="child">
+		<input v-model="parentMsg">
+		<br>
+		<child v-bind:my-message="parentMsg"></child>
+	</div>
+	<!-- event-example -->
+	<!-- 子组件模板 -->
+	<template id="child-template">
+		<input v-model="msg">
+		<button v-on:click="notify">Dispatch Event</button>
+	</template>
+	<!-- 父组件模板 -->
+	<div id="events-example">
+		<p>Messages:{{messages|json}}</p>
+		<childs></childs>
+	</div>
+
+	<script type="text/javascript" src="./vue.js"></script>
+	<script type="text/javascript">
+	//创建一个组件构造器,定义
+	var MyComponent = Vue.extend({
+		//选项
+		template:'<div>A custom component!</div>'
+	})
+	//全局注册组件，tag为my-component,注册要在初始化根实例之前
+	Vue.component('my-component',MyComponent);
+	//创建根实例
+	new Vue({
+		el:'#example'
+	})
+	//也可以在一个步骤中扩展与注册
+	// Vue.component('child',{
+	// 	//声明props
+	// 	props:['myMessage'],
+	// 	template:'<span>{{myMessage}}</span>'
+	// });
+	new Vue({
+		el:'.child',
+		components:{
+			child:{
+				props:['myMessage'],
+				template:'<div>{{myMessage}}</div>'
+			}
+		}
+	})
+	//event-example
+	Vue.component('childs',{
+		template:'#child-template',
+		data:function(){
+			return {msg:'hello'}
+		},
+		methods:{
+			notify:function(){
+				if(this.msg.trim()){
+					this.$dispatch('child-msg',this.msg);
+					this.msg=''
+				}
+			}
+		}
+	})
+	var parent = new Vue({
+		el:'#events-example',
+		data:{
+			messages:[]
+		},
+		//在创建实例时‘events’选项简单的调用‘$on’
+		events:{
+			'child-msg':function(msg){
+				this.messages.push(msg);
+			}
+		}
+	})
+	</script>
+</body>
+</html>

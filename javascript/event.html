@@ -1,0 +1,26 @@
+<html>
+<head>
+	<title>事件模型及事件代理/委托</title>
+	<script type="text/javascript">
+	window.onload = function(){
+		var cm = document.getElementById('cm');
+	cm.onclick = function(e){
+		var evt = window.event || arguments[0];//IE or other
+		var target = e.srcElement || e.target;//IE or ff
+		alert(target.tagName);
+		alert(target.innerHTML);
+		return false;
+	}
+	}
+	
+	</script>
+</head>
+<body>
+	<div id="cm">
+		<a href="#">1</a>
+		<a href="#">2</a>
+		<a href="#">3</a>
+		<a href="#">4</a>
+	</div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<html>
+<head>
+	<title>tou事件小实验</title>
+	<style type="text/css">
+	.a{
+		width: 50px;
+		height:50px;
+		border:1px solid red;
+	}
+	div{
+		width: 50px;
+		height: 50px;
+		border:1px solid red;
+	}
+	.aa{
+		float:left;
+	}
+	</style>
+</head>
+<body>
+	<div class="aa"></div>
+	<div class="bb"></div>
+	<div class="cc"></div>
+	<span>
+		<div class="a"></div>
+	</span>
+	<script type="text/javascript">
+		var a = document.getElementsByClassName('a')[0];
+		a.ontouchend = function (argument) {
+			window.location.href = 'http://www.baidu.com';
+		}
+
+		function foo(){
+			console.log(this.b);
+		}
+		function doFoo(fn){
+			fn();
+		}
+		var obj = {
+			b:2,
+			foo:foo
+		}
+		
+		var b = 'oops';
+		doFoo(obj.foo);
+
+		var c=1;
+		function bbb() {
+			alert(this.c);
+		}
+		function ccc(){
+			bbb();
+		}
+		ccc();
+	</script>
+</body>
+</html>

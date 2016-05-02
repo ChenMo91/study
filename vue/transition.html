@@ -1,0 +1,36 @@
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div id="fade">
+		<p transition="fade">fade</p>
+		<button v-on:click="">toggle</button>
+	</div>
+	
+
+
+	<script type="text/javascript" src="./vue.js"></script>
+	<script type="text/javascript">
+		new Vue({
+			el:'#fade'
+		})
+		Vue.transition('fade',{
+			css:false,
+			enter:function(el,done){
+				$(el).css('opacity',0).animate({opacity:1},1000,done);
+			},
+			enterCancelled:function(el){
+				$(el).stop();
+			},
+			leave:function(el,done){
+				$(el).animate({opacity:0},1000,done);
+			},
+			leaveCancelled:function(el){
+				$(el).stop();
+			}
+		});
+	</script>
+</body>
+</html>
