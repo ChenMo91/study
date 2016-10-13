@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>将url参数解析为对象</title>
+	<script>
+		var url = 'http://witmax.cn/index.php?key0=0&key1=1&key2=2';
+		var hash  = url.split('?')[1];
+		var hashArr = hash.split('&');
+		var obj = {};
+		hashArr.map(function (el) {
+			var paramArr = el.split('=');
+			obj[paramArr[0]] = paramArr[1];
+		});
+
+		console.log(obj);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

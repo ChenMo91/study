@@ -6,44 +6,69 @@
 	<button onclick="alert(this.tagName.toUpperCase());">Show This</button>
 	<button onclick="alert((function(){return this}()));">Show inner this</button>
 	<script type="text/javascript">
-		Function.prototype.bind = function(){
+		Function.prototype.bind = function(oThis){
 			
 			//bind作为Function的prototype属性，每一个函数都具有bind方法，其中的this指向调用该方法的函数（也即一个函数对象实例）
-			var fn = this;
+			var fnToBind = this;
+			
 			//将类数组转换成数组
-			var args = Array.prototype.slice.call(arguments);
+			var args = Array.prototype.slice.call(arguments,1);
+			
 			//shift方法会移除数组的第一个元素，即需要绑定this的对象
-			var object = args.shift();
+			var fnNOP = function (){};
 
-			return function(){
-				console.log('args:'+arguments);
-				console.log(args.concat(Array.prototype.slice.call(arguments)));//[2,1]
-				return fn.apply(object,
+			var fnBound = function(){
+				console.log(fnToBind instanceof fnNOP);
+				return fnToBind.apply(
+
+					(this instanceof fnNOP && oThis ? this : oThis),
 					//现在args是移除了最初参数中第一个参数后的数组，也就是新函数的预设的初始参数。
 					//array.concat(items...)方法产生一个新数组，它包含一份array的浅复制，并把一个或者多个参数item附加在其后。
 					//这一行代码产生了一个参数数组，这个数组由预设的初始参数（如果存在）和新传递的参数组成。
 					args.concat(Array.prototype.slice.call(arguments)));
 
 			}
+			fnNOP.prototype = this.prototype;
+			fnBound.prototype = new fnNOP();
+
+			return fnBound;
 		}
-		var name = 'yuan'
-		var info = {
-		    name: "yuanzm",
-		    sayName: function(a) {
-		        console.log(this.name);//yuanzm
-		        console.log('a:'+a);//a:2
-		    }
-		}
-		var sayName = info.sayName.bind(info,2);
-		sayName(1); 
+		// var name = 'yuan';
+		// function foo (a) {
+		// 	this.a = a;
+		// 	console.log(this.name);
+			
+		// 	this.console = function () {
+		// 		console.log(this.a);
+		// 	}
+		// }
+		// var info = {
+		//     name: "yuanzm"
+		// }
+		// var sayName = foo.bind(info,2);
+		// sayName(3); 
+		
 		//////
-		function f(){
-			return this.a;
+		// function f(){
+		// 	return this.a;
+		// }
+		// var g = f.bind({a:"cm"});
+		// console.log(g());
+		// var o={a:37,f:f,g:g};
+		// console.log(o.f(),o.g());
+		function Point(x,y){
+			this.x = x;
+			this.y = y;
 		}
-		var g = f.bind({a:"cm"});
-		console.log(g());
-		var o={a:37,f:f,g:g};
-		console.log(o.f(),o.g());
+		Point.prototype.toString = function() {
+			console.log(this.x + ',' + this.y);
+		}
+		var p = new Point(1,2);
+		p.toString();
+		var emptyObj = {};
+		var BPoint = Point.bind(emptyObj,0);
+		var bPoint = new BPoint(5);
+		bPoint.toString();
 	</script>
 </body>
 </html>

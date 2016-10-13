@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>纯CSS绘制三角形&insertAfter</title>
+	<style>
+		#triangle{
+			width:0;
+			height:0;
+			border-left:50px solid transparent;
+			border-right:50px solid transparent;
+			border-bottom:100px solid red;
+		}
+	</style>
+</head>
+<body>
+	<div id="triangle">
+		
+	</div>
+
+	<script>
+		//insertAfter
+		function insertAfter (newObj, oldObj){
+			var next = oldObj.nextSibling;
+			var parent = oldObj.parentNode;
+			parent.insertBefore(newObj, next);
+		}
+
+		var el = document.getElementById('triangle');
+		var newEl = document.createElement('div');
+		newEl.innerHTML = 'cm';
+		insertAfter(newEl, el);
+	</script>
+</body>
+</html>

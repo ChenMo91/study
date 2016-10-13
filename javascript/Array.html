@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>常用数组方法</title>
+	<script>
+		//filter输出指定条件的数组元素
+		var arr = [
+		  {"name":"apple", "count": 2},
+		  {"name":"orange", "count": 5},
+		  {"name":"pear", "count": 3},
+		  {"name":"orange", "count": 16},
+		];
+   
+		var newArr = arr.filter(function(item){
+		  return item.count > 3;
+		});
+		console.log(newArr);
+		//foreach为每个数组元素执行某个方法
+		arr.forEach(function (item) {
+			console.log(item);
+		});
+		//map为数组的每个元素执行一定操作后，返回一个新的数组
+		var newArr2 = arr.map(function(item,index){
+			item = "有" + item.count + '个' + item.name;
+			return item;
+		})
+		console.log(newArr2);
+		//reduce实现累加功能
+		var arr2 = ['apple','orange','apple','pear'];
+		var newArr3 = arr2.reduce(function(prev,next){
+			console.log('prev:' + prev);
+			console.log('next:' + next);
+			prev[next] = (prev[next] + 1) || 1;
+			console.log(prev[next]);
+			return prev;
+		})
+		console.log(newArr3);
+	</script>
+</head>
+<body>
+	
+</body>
+</html>

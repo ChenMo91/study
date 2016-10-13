@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>自适应三栏布局-float法</title>
+	<style>
+	     html,body{
+	     	height:100%;
+	     }
+		.left{
+			float:left;
+			width: 200px;
+			border-right:1px solid black;
+		}
+		.right{
+			float:right;
+			width:200px;
+			border-left:1px solid black;
+		}
+		div{
+			height:100%;
+		}
+	</style>
+</head>
+<body>
+	<div class="left">我是左边</div>
+	<div class="right">我是右边</div>
+	<!-- 中间栏要放在最后 -->
+	<div class="main">我是中间</div>
+</body>
+</html>

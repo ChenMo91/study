@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>javascript实现排序函数</title>
+</head>
+<body>
+	<script>
+		/**
+		 * [bubbleSort description]冒泡排序
+		 * @param  {[type]} arr [description]
+		 * @return {[type]}     [description]
+		 * 时间复杂度-O(n^2)
+		 */
+		function bubbleSort(arr) {
+			var temp,len = arr.length;
+
+			for(var i = 0; i < len; i++){
+				for(var j = 0; j < len - i - 1; j++){
+					if(arr[j] > arr[j+1]){
+						temp = arr[j];
+						arr[j] = arr[j+1];
+						arr[j+1] = temp;
+					}
+				}
+			}
+
+			return arr;
+		}
+
+		/**
+		 * [selectSort 选择排序]
+		 * @param  {[type]} arr [description]
+		 * @return {[type]}     [description]
+		 * 时间复杂度O(n^2)
+		 */
+		function selectSort(arr){
+			var len = arr.length;
+			var minIndex, temp;
+			for(var i = 0; i < len; i++){
+				minIndex = i;
+				for(var j = i + 1; j < len; j++){
+					if(arr[j] < arr[minIndex]){
+						minIndex = j;
+					}
+				}
+				temp = arr[i];
+				arr[i] = arr[minIndex];
+				arr[minIndex] = temp;
+			}
+
+			return arr;
+		}
+		/**
+		 * [insertSort 插入排序]
+		 * @param  {[type]} arr [description]
+		 * @return {[type]}     [description]
+		 */
+		function insertSort(arr){
+			var len = arr.length,key;
+			for(var i = 1; i < len; i++) {
+				key = arr[i];
+				for(var j = i - 1;j > -1;j--){
+					if(arr[j] > key) {
+						arr[j + 1] = arr[j];
+					}
+					else{
+						break;
+					}
+				}
+				arr[j+1] = key;
+			}
+			return arr;
+		}
+		/**
+		 * [quickSort 快速排序]
+		 * @param  {[type]} arr  [description]
+		 * @param  {[type]} left [description]
+		 * @param  {[type]} end  [description]
+		 * @return {[type]}      [description]
+		 */
+		function quickSort(arr, left, end) {
+			if (left < end) {
+				q = partition(arr, left, end);
+				quickSort(arr, left, q-1);
+				quickSort(arr, q+1, end);
+			}
+			return arr;
+		}
+		
+		function partition(arr, left, end) {
+			var key = arr[end];
+			var i = left - 1,temp;
+			for(var j = left; j <= end-1; j++){
+				if(arr[j] <= key) {
+					i++;
+					temp = arr[i];
+					arr[i] = arr[j];
+					arr[j] = temp;
+				}
+				
+			}
+			temp = arr[i+1];
+			arr[i +1] = arr[end];
+			arr[end] = temp;
+			return i+1;
+		}
+		var array = [12,3,4,7,1,10];
+		console.log(insertSort(array));
+	</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>设置、删除、获取cookies</title>
+</head>
+<body>
+	<script>
+		function setCookie(name, value, expireDays) {
+			var curDate = new Date().getTime();
+			var expires = curDate + expireDays * 60 * 60 * 1000;
+			document.cookie = [
+			name, '=', encodeURIComponent(value),
+			expires ? ';expires=' + expires.toUTCString() : '',
+			].join('');
+		}
+
+		function getCookie(name) {
+			//以name或不以name为开头，value为非;的0个或多个，以;为结尾或没有
+			
+			var reg = new RegExp("^| " + name + "=([^;]*)(;|$)");
+			var arr = document.cookie.match(reg);
+			return arr;
+		}
+		setCookie('chenmo','111');
+		console.log(getCookie('chenmo'));
+	</script>
+</body>
+</html>

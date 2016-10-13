@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script>
+		var foo = 1;
+		function main() {
+			alert(foo);
+			var foo = 2;
+			alert(this);
+			alert(this.foo);
+			this.foo = 3;
+		}
+		main();
+		new main();
+	</script>
+</head>
+<body>
+	
+</body>
+</html>
